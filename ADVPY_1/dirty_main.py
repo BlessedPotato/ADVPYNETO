@@ -1,9 +1,9 @@
-from accountant.client import *
-from accountant.db.salary import *
+from accountant import *
+from accountant.db import *
 from datetime import *
 
 if __name__ == '__main__':
 
-    people.get_employee()
+    people.get_employees()
     salary.calculate_salary()
     print(f'Current date is: {date.today()}')
