@@ -3,11 +3,6 @@ from pprint import pprint
 import csv
 import re
 
-with open("phonebook_raw.csv") as f:
-    rows = csv.reader(f, delimiter=",")
-    contacts_list = list(rows)
-pprint(contacts_list)
-
 ## 1. Выполните пункты 1-3 задания.
 
 def name_correction(file_list):
@@ -63,6 +58,17 @@ def duplicates_correction(file_list):
 
 ## 2. Сохраните получившиеся данные в другой файл.
 ## Код для записи файла в формате CSV:
-with open("phonebook.csv", "w") as f:
-    datawriter = csv.writer(f, delimiter=',')
-    datawriter.writerows(contacts_list)
+def correct_file(file):
+    with open(file, encoding="utf-8") as f:
+        rows = csv.reader(f, delimiter=',')
+        file_list = list(rows)
+
+    name_file_list = name_correction(file_list)
+    phones_file_list = phones_correction(name_file_list)
+    final_file_list = duplicates_correction(phones_file_list)
+
+    with open('phonebook.csv', 'w', encoding="utf-8") as f:
+        datawriter = csv.writer(f, delimiter=',')
+        datawriter.writerows(final_file_list)
+
+correct_file('phonebook_raw.csv')
